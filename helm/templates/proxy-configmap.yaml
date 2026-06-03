@@ -1,0 +1,15 @@
+{{- if .Values.proxy.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "infra-otel-collector.fullname" . }}-proxy
+  labels:
+    {{- include "infra-otel-collector.labels" . | nindent 4 }}
+data:
+  HTTP_PROXY: {{ .Values.proxy.httpProxy | quote }}
+  HTTPS_PROXY: {{ .Values.proxy.httpsProxy | quote }}
+  NO_PROXY: {{ .Values.proxy.noProxy | quote }}
+  http_proxy: {{ .Values.proxy.httpProxy | quote }}
+  https_proxy: {{ .Values.proxy.httpsProxy | quote }}
+  no_proxy: {{ .Values.proxy.noProxy | quote }}
+{{- end }}

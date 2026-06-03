@@ -1,0 +1,7 @@
+apiVersion: v2
+name: infra-otel-collector
+description: OTel Collector DaemonSet para coleta de métricas de host e proxy OTLP para SigNoz Cloud
+
+type: application
+version: 0.1.0
+appVersion: "0.102.0"

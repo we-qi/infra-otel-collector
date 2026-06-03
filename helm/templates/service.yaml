@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "infra-otel-collector.fullname" . }}
+  labels:
+    {{- include "infra-otel-collector.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - name: otlp-grpc
+      port: {{ .Values.service.otlpGrpcPort }}
+      targetPort: otlp-grpc
+      protocol: TCP
+    - name: otlp-http
+      port: {{ .Values.service.otlpHttpPort }}
+      targetPort: otlp-http
+      protocol: TCP
+    - name: metrics
+      port: {{ .Values.service.metricsPort }}
+      targetPort: metrics
+      protocol: TCP
+    - name: health
+      port: {{ .Values.service.healthPort }}
+      targetPort: health
+      protocol: TCP
+  selector:
+    {{- include "infra-otel-collector.selectorLabels" . | nindent 4 }}

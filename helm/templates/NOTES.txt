@@ -1,0 +1,11 @@
+OTel Collector deployed as DaemonSet.
+
+Endpoints disponíveis dentro do cluster:
+  OTLP gRPC : {{ include "infra-otel-collector.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:4317
+  OTLP HTTP : {{ include "infra-otel-collector.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:4318
+
+Configure nas aplicações:
+  OTLP_ENDPOINT={{ include "infra-otel-collector.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:4317
+
+Health check:
+  kubectl get pods -n {{ .Release.Namespace }} -l app.kubernetes.io/name={{ include "infra-otel-collector.name" . }}
